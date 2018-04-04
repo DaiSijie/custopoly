@@ -22,8 +22,7 @@ public class CardLocation extends Location {
 
     private static final int OUTER_MARGIN = 10;
 
-    private static final int INNER_MARGIN = 5;
-
+    private static final int INNER_MARGIN = 10;
 
     // title
 
@@ -33,7 +32,14 @@ public class CardLocation extends Location {
 
     private static final int TITLE_HEIGHT = 30;
 
+    // rent prices
+
+    private static final int USUAL_RENT_HEIGHT = 30;
+
+    private static final int PROPERTY_RENT_HEIGHT = 23;
+
     // copyright box
+
     private static final int COPYRIGHT_WIDTH = 100;
 
     private static final int COPYRIGHT_HEIGHT = 15;
@@ -73,9 +79,27 @@ public class CardLocation extends Location {
         drawCentered("AVENUE", t2Box);
 
         Rectangle2D.Double t3Box = new Rectangle2D.Double(titleBox.x, titleBox.y + OVER_TITLE_HEIGHT + TITLE_MARGIN + TITLE_HEIGHT, titleBox.width, TITLE_HEIGHT);
-        drawCentered("DE LA CALIFORNIE", t3Box);
+        drawCentered("DU CHATEAU", t3Box);
 
-        /* 4: copyright text */
+        /* 4 : property rent */
+        double startY = titleBox.y + titleBox.height + 10;
+        double startX = titleBox.x;
+
+        Rectangle2D.Double normalRentBox = new Rectangle2D.Double(startX, startY, titleBox.width, USUAL_RENT_HEIGHT);
+        adjustFont(true, 14f);
+        drawCentered("LOYER 8$", normalRentBox);
+
+        adjustFont(false, 14f);
+        for(int i = 1; i < 6; i++){
+            Rectangle2D.Double box = new Rectangle2D.Double(startX, startY + USUAL_RENT_HEIGHT + (i-1) * PROPERTY_RENT_HEIGHT, titleBox.width, PROPERTY_RENT_HEIGHT);
+            if(i == 5)
+                drawLeft("Avec hôtel", box);
+            else
+                drawLeft("Avec " + i + " maison" + (i == 1? "" : "s"), box);
+            drawRight((20 * i) + "$", box);
+        }
+
+        /* 5: copyright text */
         double copyrightStartX = (WIDTH - COPYRIGHT_WIDTH) / 2.;
         double copyrightStartY = HEIGHT - COPYRIGHT_HEIGHT - COPYRIGHT_BOTTOM_DIST;
         Rectangle2D.Double copyrightBox = new Rectangle2D.Double(copyrightStartX, copyrightStartY, COPYRIGHT_WIDTH, COPYRIGHT_HEIGHT);
@@ -84,7 +108,6 @@ public class CardLocation extends Location {
         g.setColor(Color.BLACK);
         adjustFont(true, 8f);
         drawCentered("Copyright G.M 2018", copyrightBox);
-
 
         return image;
     }

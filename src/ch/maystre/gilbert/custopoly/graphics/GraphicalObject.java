@@ -70,11 +70,21 @@ public abstract class GraphicalObject {
     }
 
     protected void drawLeft(String text, Rectangle2D box){
-        // todo
+        FontMetrics metrics = g.getFontMetrics(g.getFont());
+
+        double x = box.getX();
+        double y = box.getY() + ((box.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
+
+        g.drawString(text, (int) x, (int) y);
     }
 
     protected void drawRight(String text, Rectangle2D box){
-        // todo
+        FontMetrics metrics = g.getFontMetrics(g.getFont());
+
+        double x = box.getX() + box.getWidth() - metrics.stringWidth(text);
+        double y = box.getY() + ((box.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
+
+        g.drawString(text, (int) x, (int) y);
     }
 
 }
