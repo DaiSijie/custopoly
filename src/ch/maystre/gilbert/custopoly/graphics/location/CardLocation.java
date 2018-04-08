@@ -34,9 +34,14 @@ public class CardLocation extends Location {
 
     // rent prices
 
+    private static final int BODY_MARGIN = 10;
+
     private static final int USUAL_RENT_HEIGHT = 30;
 
     private static final int PROPERTY_RENT_HEIGHT = 23;
+
+    private static final int ALL_PROPERTIES_DOUBLE_HEIGHT = 50;
+
 
     // copyright box
 
@@ -64,7 +69,7 @@ public class CardLocation extends Location {
         /* 3: title */
         int totMargin = OUTER_MARGIN + INNER_MARGIN;
         Rectangle2D.Double titleBox = new Rectangle2D.Double(totMargin, totMargin, WIDTH - 2 * totMargin, OVER_TITLE_HEIGHT + 2 * TITLE_HEIGHT + TITLE_MARGIN);
-        g.setColor(Color.GREEN);
+        g.setColor(getLocationColor());
         g.fill(titleBox);
         g.setColor(Color.BLACK);
         g.draw(titleBox);
@@ -76,18 +81,18 @@ public class CardLocation extends Location {
 
         Rectangle2D.Double t2Box = new Rectangle2D.Double(titleBox.x, titleBox.y + OVER_TITLE_HEIGHT + TITLE_MARGIN, titleBox.width, TITLE_HEIGHT);
         adjustFont(true, 24);
-        drawCentered("AVENUE", t2Box);
+        drawCentered("RENENS", t2Box);
 
         Rectangle2D.Double t3Box = new Rectangle2D.Double(titleBox.x, titleBox.y + OVER_TITLE_HEIGHT + TITLE_MARGIN + TITLE_HEIGHT, titleBox.width, TITLE_HEIGHT);
-        drawCentered("DU CHATEAU", t3Box);
+        drawCentered("L'ETANG", t3Box);
 
         /* 4 : property rent */
-        double startY = titleBox.y + titleBox.height + 10;
+        double startY = titleBox.y + titleBox.height + BODY_MARGIN;
         double startX = titleBox.x;
 
         Rectangle2D.Double normalRentBox = new Rectangle2D.Double(startX, startY, titleBox.width, USUAL_RENT_HEIGHT);
         adjustFont(true, 14f);
-        drawCentered("LOYER 8$", normalRentBox);
+        drawCentered("LOYER CHF 520", normalRentBox);
 
         adjustFont(false, 14f);
         for(int i = 1; i < 6; i++){
@@ -96,10 +101,36 @@ public class CardLocation extends Location {
                 drawLeft("Avec hôtel", box);
             else
                 drawLeft("Avec " + i + " maison" + (i == 1? "" : "s"), box);
-            drawRight((20 * i) + "$", box);
+            drawRight("CHF" + (200 * i), box);
         }
 
-        /* 5: copyright text */
+        startY += USUAL_RENT_HEIGHT + 5 * PROPERTY_RENT_HEIGHT;
+        Rectangle2D.Double allProperties = new Rectangle2D.Double(startX, startY, titleBox.width, ALL_PROPERTIES_DOUBLE_HEIGHT);
+        adjustFont(false, 12f);
+        drawLinesCentered(new String[]{"Si un joueur possède tous les terrains",  "d'un groupe de même couleur, le loyer", "des terrains nus est doublé."}, allProperties);
+
+        /* 5: house prices */
+        startY += ALL_PROPERTIES_DOUBLE_HEIGHT + BODY_MARGIN;
+        g.drawLine((int) startX,(int) startY,(int) (startX + titleBox.width), (int) startY);
+        startY += BODY_MARGIN;
+
+        adjustFont(true, 12f);
+        Rectangle2D.Double houseBox = new Rectangle2D.Double(startX, startY, titleBox.width, USUAL_RENT_HEIGHT);
+        drawLeft("PRIX D'UNE MAISON", houseBox);
+        drawRight("CHF 4'000", houseBox);
+
+        startY += USUAL_RENT_HEIGHT;
+        Rectangle2D.Double hotelBox = new Rectangle2D.Double(startX, startY, titleBox.width, USUAL_RENT_HEIGHT);
+        drawLeft("PRIX D'UN HOTEL", hotelBox);
+        drawRight("CHF 4'000", hotelBox);
+
+        startY += USUAL_RENT_HEIGHT;
+        Rectangle2D.Double mortgageBox = new Rectangle2D.Double(startX, startY, titleBox.width, USUAL_RENT_HEIGHT);
+        drawLeft("VALEUR HYPOTHECAIRE", mortgageBox);
+        drawRight("CHF 3'000", mortgageBox);
+
+
+        /* 6: copyright text */
         double copyrightStartX = (WIDTH - COPYRIGHT_WIDTH) / 2.;
         double copyrightStartY = HEIGHT - COPYRIGHT_HEIGHT - COPYRIGHT_BOTTOM_DIST;
         Rectangle2D.Double copyrightBox = new Rectangle2D.Double(copyrightStartX, copyrightStartY, COPYRIGHT_WIDTH, COPYRIGHT_HEIGHT);

@@ -87,4 +87,19 @@ public abstract class GraphicalObject {
         g.drawString(text, (int) x, (int) y);
     }
 
+    protected void drawLinesCentered(String[] lines, Rectangle2D box){
+        FontMetrics metrics = g.getFontMetrics(g.getFont());
+
+        // compute total height
+        double totalHeight = (metrics.getHeight()) * lines.length;
+        double y = box.getY() + (box.getHeight() - totalHeight) / 2.;
+
+        for(String line : lines){
+            double x = box.getX() + (box.getWidth() - metrics.stringWidth(line)) / 2;
+            g.drawString(line, (int) x, (int) (y + metrics.getAscent()));
+            y += metrics.getHeight();
+        }
+
+    }
+
 }

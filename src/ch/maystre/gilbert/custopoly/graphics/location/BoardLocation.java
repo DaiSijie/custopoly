@@ -6,6 +6,7 @@
 package ch.maystre.gilbert.custopoly.graphics.location;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 /**
@@ -15,9 +16,20 @@ public class BoardLocation extends Location {
 
     // region drawing constants
 
-    private static int WIDTH = 50;
+    private static final int WIDTH = 300;
 
-    private static int HEIGHT = 100;
+    private static final int HEIGHT = 450;
+
+    private static final int HALF_THICKNESS = 3;
+
+    private static final int COLOR_HEIGHT = 50;
+
+    // region title
+
+    private static final int TITLE_HEIGHT = 150;
+
+    // region price
+    private static final int PRICE_HEIGHT = 100;
 
     // endregion
 
@@ -27,8 +39,32 @@ public class BoardLocation extends Location {
 
     @Override
     public BufferedImage buildImage() {
-        g.setColor(Color.RED);
-        g.drawRect(0, 0, 10, 10);
+        g.setColor(getLocationColor());
+        g.fillRect(0, 0, WIDTH, COLOR_HEIGHT);
+
+        /* step 1: draw grid */
+        g.setColor(Color.BLACK);
+        Rectangle2D.Double top = new Rectangle2D.Double(0, 0, WIDTH, 2 * HALF_THICKNESS);
+        g.fill(top);
+        Rectangle2D.Double bottom = new Rectangle2D.Double(0, HEIGHT - 2 * HALF_THICKNESS, WIDTH, 2 * HALF_THICKNESS);
+        g.fill(bottom);
+        Rectangle2D.Double left = new Rectangle2D.Double(0, 0, HALF_THICKNESS, HEIGHT);
+        g.fill(left);
+        Rectangle2D.Double right = new Rectangle2D.Double(WIDTH - HALF_THICKNESS, 0, HALF_THICKNESS, HEIGHT);
+        g.fill(right);
+        Rectangle2D.Double center = new Rectangle2D.Double(0, COLOR_HEIGHT, WIDTH, 2 * HALF_THICKNESS);
+        g.fill(center);
+
+        /* step 2: draw infos */
+        adjustFont(true, 30);
+        Rectangle2D.Double titleBox = new Rectangle2D.Double(0, COLOR_HEIGHT + 2 * HALF_THICKNESS, WIDTH, TITLE_HEIGHT);
+        drawLinesCentered(new String[]{"RENENS", "L'ETANG"}, titleBox);
+
+        /* step 3: draw price */
+        Rectangle2D.Double priceBox = new Rectangle2D.Double(0, HEIGHT - PRICE_HEIGHT, WIDTH, PRICE_HEIGHT);
+        drawCentered("CHF 1'200", priceBox);
+
+
         return image;
     }
 
