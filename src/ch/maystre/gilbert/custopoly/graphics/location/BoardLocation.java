@@ -22,7 +22,7 @@ public class BoardLocation extends Location {
 
     private static final int HALF_THICKNESS = 3;
 
-    private static final int COLOR_HEIGHT = 50;
+    private static final int COLOR_HEIGHT = 90;
 
     // region title
 

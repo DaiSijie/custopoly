@@ -5,8 +5,8 @@
 
 package ch.maystre.gilbert.custopoly.launcher;
 
+import ch.maystre.gilbert.custopoly.graphics.location.BackCardLocation;
 import ch.maystre.gilbert.custopoly.graphics.location.BoardLocation;
-import ch.maystre.gilbert.custopoly.graphics.location.CardLocation;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -16,9 +16,9 @@ public class Main {
 
     public static void main(String[] args){
         String folder = "/Users/gilbert/Programming/java-intelij/custopoly/out/experiments/";
-        BoardLocation l = new BoardLocation("Los Etanos", 21);
+        BackCardLocation l = new BackCardLocation("Los Etanos", 21);
         try {
-            ImageIO.write(l.buildImage(), "png", new File(folder + "board_location.png"));
+            ImageIO.write(l.buildImage(), "png", new File(folder + "back_card_location.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
