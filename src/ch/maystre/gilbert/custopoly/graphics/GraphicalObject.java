@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public abstract class GraphicalObject {
 
@@ -100,6 +101,44 @@ public abstract class GraphicalObject {
             y += metrics.getHeight();
         }
 
+    }
+
+    /**
+     * Draw a text smartly. If the text contains "\n" then lines will be split accordingly.
+     * Else, lines will be split greedily to match the width.
+     *
+     * @param text The text
+     * @param box The bound within which to print
+     */
+    protected void drawLinesSmart(String text, Rectangle2D box){
+        String[] linesToDraw;
+
+        if(text.contains("\\n"))
+            linesToDraw = text.split("\\n");
+        else{
+            FontMetrics metrics = g.getFontMetrics(g.getFont());
+
+            // greedily conquer
+            String[] words = text.split(" ");
+            ArrayList<String> lines = new ArrayList<>();
+
+            String currentLine = "";
+            for(String word : words){
+                int potentialWidth = metrics.stringWidth(currentLine + " " + word);
+                if(potentialWidth < box.getWidth()){
+                    currentLine += " " + word;
+                }
+                else{ // close the bag!
+                    lines.add(currentLine);
+                    currentLine = word;
+                }
+            }
+
+            lines.add(currentLine);
+            linesToDraw = lines.toArray(new String[lines.size()]);
+        }
+
+        drawLinesCentered(linesToDraw, box);
     }
 
 }
