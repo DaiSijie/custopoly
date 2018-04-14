@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import static ch.maystre.gilbert.custopoly.graphics.Toolbox.formatAmount;
+
 public class BackCardLocation extends CardLocation {
 
     private static final Color POLY_RED = new Color(255, 51, 51);
@@ -46,7 +48,7 @@ public class BackCardLocation extends CardLocation {
         g.setColor(Color.WHITE);
         adjustFont(true, 26);
         Rectangle2D.Double titleBox = new Rectangle2D.Double(OUTTER_MARGIN, topY, WIDTH - 2 * OUTTER_MARGIN, TITLE_HEIGHT);
-        drawCentered("HYPOTHEQUEE", titleBox);
+        drawCentered("HYPOTHEQUE", titleBox);
         topY += TITLE_HEIGHT;
 
         /* 3: location name */
@@ -54,15 +56,15 @@ public class BackCardLocation extends CardLocation {
         g.drawLine(OUTTER_MARGIN, topY, WIDTH - OUTTER_MARGIN, topY);
         Rectangle2D.Double locationBox = new Rectangle2D.Double(OUTTER_MARGIN, topY, WIDTH - 2 * OUTTER_MARGIN, LOCATION_HEIGHT);
         adjustFont(true, 18);
-        drawLinesCentered(new String[] {"Renens", "Los Etanos"}, locationBox);
+        drawLinesSmart(name, locationBox);
         topY += LOCATION_HEIGHT;
         g.drawLine(OUTTER_MARGIN, topY, WIDTH - OUTTER_MARGIN, topY);
 
-        /* 4: hypotheque value */
-        Rectangle2D.Double valueBox = new Rectangle2D.Double(OUTTER_MARGIN + INNER_MARGIN, topY, WIDTH - 2 * (OUTTER_MARGIN +  INNER_MARGIN), HYPOTHEQUE_HEIGHT);
+        /* 4: mortgage value */
+        Rectangle2D.Double mortgageBox = new Rectangle2D.Double(OUTTER_MARGIN + INNER_MARGIN, topY, WIDTH - 2 * (OUTTER_MARGIN +  INNER_MARGIN), HYPOTHEQUE_HEIGHT);
         adjustFont(true, 13);
-        drawLeft("VALEUR HYPOTHEQUE", valueBox);
-        drawRight("CHF 1'800", valueBox);
+        drawLeft("VALEUR HYPOTHEQUE", mortgageBox);
+        drawRight(formatAmount(getMortgagePrice()), mortgageBox);
         topY += HYPOTHEQUE_HEIGHT;
 
         /* 5: instructions */

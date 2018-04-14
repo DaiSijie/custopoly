@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class GraphicalObject {
 
@@ -113,8 +114,10 @@ public abstract class GraphicalObject {
     protected void drawLinesSmart(String text, Rectangle2D box){
         String[] linesToDraw;
 
-        if(text.contains("\\n"))
-            linesToDraw = text.split("\\n");
+        if(text.contains("\\n")) {
+            text = text.replace("\\n", "SpAcEdOnTdOtHiSaThOmEkIdS");
+            linesToDraw = text.split("SpAcEdOnTdOtHiSaThOmEkIdS");
+        }
         else{
             FontMetrics metrics = g.getFontMetrics(g.getFont());
 

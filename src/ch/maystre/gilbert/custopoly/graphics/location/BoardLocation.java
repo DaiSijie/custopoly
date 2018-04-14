@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import static ch.maystre.gilbert.custopoly.graphics.Toolbox.formatAmount;
+
 /**
  * A class that represents locations (e.g. Zurich Paradeplatz) on the game board
  */
@@ -24,11 +26,8 @@ public class BoardLocation extends Location {
 
     private static final int COLOR_HEIGHT = 90;
 
-    // region title
-
     private static final int TITLE_HEIGHT = 150;
 
-    // region price
     private static final int PRICE_HEIGHT = 100;
 
     // endregion
@@ -58,12 +57,11 @@ public class BoardLocation extends Location {
         /* step 2: draw infos */
         adjustFont(true, 30);
         Rectangle2D.Double titleBox = new Rectangle2D.Double(0, COLOR_HEIGHT + 2 * HALF_THICKNESS, WIDTH, TITLE_HEIGHT);
-        drawLinesCentered(new String[]{"RENENS", "L'ETANG"}, titleBox);
+        drawLinesSmart(name, titleBox);
 
         /* step 3: draw price */
         Rectangle2D.Double priceBox = new Rectangle2D.Double(0, HEIGHT - PRICE_HEIGHT, WIDTH, PRICE_HEIGHT);
-        drawCentered("CHF 1'200", priceBox);
-
+        drawCentered(formatAmount(getLocationBuyPrice()), priceBox);
 
         return image;
     }

@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import static ch.maystre.gilbert.custopoly.graphics.Toolbox.formatAmount;
+
 /**
  * A class that represents locations (e.g. Zurich Paradeplatz) on cards
  */
@@ -75,12 +77,9 @@ public class FrontCardLocation extends CardLocation {
         drawCentered("Titre de propriété", t1Box);
 
 
-        Rectangle2D.Double t2Box = new Rectangle2D.Double(titleBox.x, titleBox.y + OVER_TITLE_HEIGHT + TITLE_MARGIN, titleBox.width, TITLE_HEIGHT);
+        Rectangle2D.Double t2Box = new Rectangle2D.Double(titleBox.x, titleBox.y + OVER_TITLE_HEIGHT + TITLE_MARGIN, titleBox.width, 2 * TITLE_HEIGHT);
         adjustFont(true, 24);
-        drawCentered("RENENS", t2Box);
-
-        Rectangle2D.Double t3Box = new Rectangle2D.Double(titleBox.x, titleBox.y + OVER_TITLE_HEIGHT + TITLE_MARGIN + TITLE_HEIGHT, titleBox.width, TITLE_HEIGHT);
-        drawCentered("L'ETANG", t3Box);
+        drawLinesSmart(name, t2Box);
 
         /* 4 : property rent */
         double startY = titleBox.y + titleBox.height + BODY_MARGIN;
@@ -88,7 +87,7 @@ public class FrontCardLocation extends CardLocation {
 
         Rectangle2D.Double normalRentBox = new Rectangle2D.Double(startX, startY, titleBox.width, USUAL_RENT_HEIGHT);
         adjustFont(true, 14f);
-        drawCentered("LOYER CHF 520", normalRentBox);
+        drawCentered("LOYER " + formatAmount(getBasicRentPrice()) , normalRentBox);
 
         adjustFont(false, 14f);
         for(int i = 1; i < 6; i++){
@@ -97,7 +96,7 @@ public class FrontCardLocation extends CardLocation {
                 drawLeft("Avec hôtel", box);
             else
                 drawLeft("Avec " + i + " maison" + (i == 1? "" : "s"), box);
-            drawRight("CHF" + (200 * i), box);
+            drawRight(formatAmount(getHouseRentPrice(i)), box);
         }
 
         startY += USUAL_RENT_HEIGHT + 5 * PROPERTY_RENT_HEIGHT;
@@ -113,17 +112,17 @@ public class FrontCardLocation extends CardLocation {
         adjustFont(true, 12f);
         Rectangle2D.Double houseBox = new Rectangle2D.Double(startX, startY, titleBox.width, USUAL_RENT_HEIGHT);
         drawLeft("PRIX D'UNE MAISON", houseBox);
-        drawRight("CHF 4'000", houseBox);
+        drawRight(formatAmount(getHouseBuyPrice()), houseBox);
 
         startY += USUAL_RENT_HEIGHT;
         Rectangle2D.Double hotelBox = new Rectangle2D.Double(startX, startY, titleBox.width, USUAL_RENT_HEIGHT);
         drawLeft("PRIX D'UN HOTEL", hotelBox);
-        drawRight("CHF 4'000", hotelBox);
+        drawRight(formatAmount(getHouseBuyPrice()), hotelBox);
 
         startY += USUAL_RENT_HEIGHT;
         Rectangle2D.Double mortgageBox = new Rectangle2D.Double(startX, startY, titleBox.width, USUAL_RENT_HEIGHT);
         drawLeft("VALEUR HYPOTHECAIRE", mortgageBox);
-        drawRight("CHF 3'000", mortgageBox);
+        drawRight(formatAmount(getMortgagePrice()), mortgageBox);
 
 
         /* 6: copyright text */
