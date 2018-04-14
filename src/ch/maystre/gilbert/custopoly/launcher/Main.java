@@ -5,6 +5,7 @@
 
 package ch.maystre.gilbert.custopoly.launcher;
 
+import ch.maystre.gilbert.custopoly.graphics.boardmisc.StartSquare;
 import ch.maystre.gilbert.custopoly.graphics.location.BackCardLocation;
 import ch.maystre.gilbert.custopoly.graphics.location.BoardLocation;
 import ch.maystre.gilbert.custopoly.graphics.location.FrontCardLocation;
@@ -24,17 +25,25 @@ public class Main {
 
         String chanceText = "Tu es libre de sortir de prison sans payer d'amende. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée ou vendue.";
 
+        /*
         BackCardLocation back = new BackCardLocation(locationName, locationRank);
         FrontCardLocation front = new FrontCardLocation(locationName, locationRank);
         BoardLocation board = new BoardLocation(locationName, locationRank);
 
+
         LuckyCard lucky = new LuckyCard(LuckyCard.LuckyCardType.CHANCE, chanceText);
+        */
+
+        StartSquare start = new StartSquare();
 
         try {
+            /*
             ImageIO.write(back.buildImage(), "png", new File(folder + "location_card_back.png"));
             ImageIO.write(front.buildImage(), "png", new File(folder + "location_card_front.png"));
             ImageIO.write(board.buildImage(), "png", new File(folder + "location_board.png"));
             ImageIO.write(lucky.buildImage(), "png", new File(folder + "lucky.png"));
+            */
+            ImageIO.write(start.buildImage(), "png", new File(folder + "start.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

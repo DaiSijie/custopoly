@@ -13,8 +13,13 @@ public class Toolbox {
         if(amount < 1000)
             return "CHF " + amount;
 
-        int beforeThousand = amount % 1000;
-        int afterThousand = amount - beforeThousand;
+        int afterThousand = amount / 1000;
+        String beforeThousand = "" + (amount - afterThousand * 1000);
+
+        while(beforeThousand.length() < 3)
+            beforeThousand = "0" + beforeThousand;
+
         return "CHF " + afterThousand + "'" + beforeThousand;
     }
+
 }
