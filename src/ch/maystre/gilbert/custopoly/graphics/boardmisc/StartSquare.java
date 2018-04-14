@@ -24,6 +24,8 @@ public class StartSquare extends Square {
     private static final int TEXT_HEIGHT = 100;
     private static final int TEXT_WIDTH = 300;
 
+    private static final int MARGIN_BOTTOM_ARROW = 50;
+
     //endregion
 
     @Override
@@ -50,9 +52,32 @@ public class StartSquare extends Square {
         adjustFont(false, 26);
         drawLinesSmart("Prélève\\n" + formatAmount(4000) + "\\nde salaire en passant", textBox);
 
-        g.setTransform(original);
-
         /* 3: arrow */
+        Polygon arrow = new Polygon();
+        arrow.addPoint(60, 80);
+        arrow.addPoint(0, 40);
+        arrow.addPoint(60, 0);
+        arrow.addPoint(60, 30);
+        arrow.addPoint(240, 30);
+        arrow.addPoint(260, 0);
+        arrow.addPoint(320, 0);
+        arrow.addPoint(300, 40);
+        arrow.addPoint(320, 80);
+        arrow.addPoint(260, 80);
+        arrow.addPoint(240, 50);
+        arrow.addPoint(60,50);
+
+        Rectangle2D bounds = arrow.getBounds2D();
+        double topY = HEIGHT - bounds.getHeight() - MARGIN_BOTTOM_ARROW;
+        double topX = (WIDTH - bounds.getWidth()) / 2;
+        arrow.translate((int) topX, (int) topY);
+
+        g.setTransform(original);
+        g.setStroke(new BasicStroke(5));
+        g.setColor(Color.RED);
+        g.fill(arrow);
+        g.setColor(Color.BLACK);
+        g.draw(arrow);
 
         return image;
     }
