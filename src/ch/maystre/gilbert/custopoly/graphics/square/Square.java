@@ -3,9 +3,12 @@
  * 14.04.18
  */
 
-package ch.maystre.gilbert.custopoly.graphics.boardmisc;
+package ch.maystre.gilbert.custopoly.graphics.square;
 
 import ch.maystre.gilbert.custopoly.graphics.GraphicalObject;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * This class represents squares
@@ -22,6 +25,12 @@ public abstract class Square extends GraphicalObject {
 
     public Square() {
         super(WIDTH, HEIGHT);
+    }
+
+    protected void addBorders(){
+        g.setColor(Color.BLACK);
+        g.fill(new Rectangle2D.Double(0, 0, HALF_THICKNESS, HEIGHT));
+        g.fill(new Rectangle2D.Double(0, 0, WIDTH, HALF_THICKNESS));
     }
 
 }

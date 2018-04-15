@@ -3,12 +3,10 @@
  * 14.04.18
  */
 
-package ch.maystre.gilbert.custopoly.graphics.boardmisc;
+package ch.maystre.gilbert.custopoly.graphics.square;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
@@ -32,9 +30,7 @@ public class StartSquare extends Square {
     public BufferedImage buildImage() {
 
         /* 1: background */
-        g.setColor(Color.BLACK);
-        g.fill(new Rectangle2D.Double(0, 0, HALF_THICKNESS, HEIGHT));
-        g.fill(new Rectangle2D.Double(0, 0, WIDTH, HALF_THICKNESS));
+        addBorders();
 
         /* 2: rotated text */
         double textBoxHeight = START_HEIGHT + TEXT_HEIGHT;
