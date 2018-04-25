@@ -46,7 +46,7 @@ public class Main {
             ImageIO.write(board.buildImage(), "png", new File(folder + "location_board.png"));
             ImageIO.write(lucky.buildImage(), "png", new File(folder + "lucky.png"));
             ImageIO.write(prison.buildImage(), "png", new File(folder + "prison.png"));
-            ImageIO.write(parc.buildImage(), "png", new File(folder + "freeParc.png"));
+            ImageIO.write(parc.buildImage(), "png", new File(folder + "free_parc.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
