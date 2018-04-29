@@ -53,9 +53,9 @@ public class FreeParcSquare extends Square {
 
     // endregion
 
-    private static final int TEXT_HEIGHT = 80;
+    private static final int TEXT_HEIGHT = 150;
 
-    private static final int ROTATING_SQUARE_SIZE = 350;
+    private static final int ROTATING_SQUARE_SIZE = 430;
 
     @Override
     public BufferedImage buildImage() {
