@@ -10,6 +10,7 @@ import ch.maystre.gilbert.custopoly.graphics.location.BoardLocation;
 import ch.maystre.gilbert.custopoly.graphics.location.FrontCardLocation;
 import ch.maystre.gilbert.custopoly.graphics.luckycard.LuckyCard;
 import ch.maystre.gilbert.custopoly.graphics.square.FreeParcSquare;
+import ch.maystre.gilbert.custopoly.graphics.square.GoToPrisonSquare;
 import ch.maystre.gilbert.custopoly.graphics.square.PrisonSquare;
 import ch.maystre.gilbert.custopoly.graphics.square.StartSquare;
 
@@ -39,6 +40,8 @@ public class Main {
 
         FreeParcSquare parc = new FreeParcSquare();
 
+
+        GoToPrisonSquare goToPrisonSquare = new GoToPrisonSquare();
         try {
 
             ImageIO.write(back.buildImage(), "png", new File(folder + "location_card_back.png"));
@@ -47,6 +50,7 @@ public class Main {
             ImageIO.write(lucky.buildImage(), "png", new File(folder + "lucky.png"));
             ImageIO.write(prison.buildImage(), "png", new File(folder + "prison.png"));
             ImageIO.write(parc.buildImage(), "png", new File(folder + "free_parc.png"));
+            ImageIO.write(goToPrisonSquare.buildImage(), "png", new File(folder + "go_to_prison.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
